@@ -17,7 +17,7 @@ class Minesweeper:
 
     def print_board(self, reveal=False):
         clear_screen()
-        print("\n=== DÉMINEUR ===\n")
+        print("\n=== MINESWEEPER ===\n")
         print('  ' + ' '.join(str(i) for i in range(self.width)))
         for y in range(self.height):
             print(y, end=' ')
@@ -31,7 +31,7 @@ class Minesweeper:
                 else:
                     print('.', end=' ')
             print()
-        print("\nMouvements effectués:", self.moves)
+        print("\nMoves made:", self.moves)
 
     def count_mines_nearby(self, x, y):
         count = 0
@@ -45,11 +45,11 @@ class Minesweeper:
 
     def reveal(self, x, y):
         if not (0 <= x < self.width and 0 <= y < self.height):
-            print("Coordonnées invalides !")
+            print("Invalid coordinates!")
             return True
         
         if self.revealed[y][x]:
-            print("Cette case a déjà été révélée !")
+            print("This cell has already been revealed!")
             return True
 
         if (y * self.width + x) in self.mines:
@@ -78,21 +78,21 @@ class Minesweeper:
         while not self.game_over:
             self.print_board()
             try:
-                x = int(input("\nEntrez la coordonnée x (0-{}): ".format(self.width-1)))
-                y = int(input("Entrez la coordonnée y (0-{}): ".format(self.height-1)))
+                x = int(input("\nEnter x coordinate (0-{}): ".format(self.width-1)))
+                y = int(input("Enter y coordinate (0-{}): ".format(self.height-1)))
                 
                 if not self.reveal(x, y):
                     self.print_board(reveal=True)
-                    print("\nGame Over! Vous avez touché une mine.")
+                    print("\nGame Over! You hit a mine.")
                     break
                 
                 if self.check_win():
                     self.print_board(reveal=True)
-                    print("\nFélicitations! Vous avez gagné!")
+                    print("\nCongratulations! You won!")
                     break
                     
             except ValueError:
-                print("Entrée invalide. Veuillez entrer uniquement des nombres.")
+                print("Invalid input. Please enter numbers only.")
 
 if __name__ == "__main__":
     game = Minesweeper()
